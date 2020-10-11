@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Asynchronous file system</title>
+<link rel="stylesheet" type="text/css" href="slides/slides.css"></head>
+<body>
+<h1>Asynchronous file system</h1>
+<div class="slides">
+<div class="page">
+<div class="slide slide-header"><div class="slide-nr">1</div><div class="headers">
+<h1>Asynchronous file system</h1>
+</div></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">2</div>
+<code>
+<span class="macro">@Def(<span class="name">file: asyncfs.h</span>)</span><br/>
+<span class="in1"></span><span class="keyword">#pragma</span> <span class="keyword">once</span><br/>
+<span class="macro">@End(<span class="name">file: asyncfs.h</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">3</div>
+<code>
+<span class="macro">@Def(<span class="name">file: asyncfs.cpp</span>)</span><br/>
+<span class="in1"></span><span class="keyword">#define</span> <span class="var">async_IMPL</span> <span class="num">1</span><br/>
+<span class="in1"></span><span class="keyword">#include</span> <span class="str">"asyncfs.h"</span><br/>
+<span class="macro">@End(<span class="name">file: asyncfs.cpp</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">4</div>
+<code>
+<span class="macro">@Def(<span class="name">file: asyncfs-tests.cpp</span>)</span><br/>
+<span class="in1"></span><span class="keyword">#define</span> <span class="var">async_TESTS</span> <span class="num">1</span><br/>
+<span class="in1"></span><span class="keyword">#include</span> <span class="str">"asyncfs.h"</span><br/>
+<span class="in1"></span><span class="type">int</span> <span class="fn">main</span>() {<br/>
+<span class="in2"></span><span class="macro">@Put(<span class="name">run unit-tests</span>)</span><br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@End(<span class="name">file: asyncfs-tests.cpp</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">5</div>
+<code>
+<span class="macro">@Def(<span class="name">run unit-tests</span>)</span><br/>
+<span class="macro">@End(<span class="name">run unit-tests</span>)</span><br/>
+</code></div>
+</div>
+</body>
+</html>

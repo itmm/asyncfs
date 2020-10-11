@@ -16,6 +16,10 @@
 <code>
 <span class="macro">@Def(<span class="name">file: asyncfs.h</span>)</span><br/>
 <span class="in1"></span><span class="keyword">#pragma</span> <span class="keyword">once</span><br/>
+<span class="in1"></span><span class="macro">@put(<span class="name">includes</span>)</span><br/>
+<span class="in1"></span><span class="keyword">namespace</span> <span class="var">asyncfs</span> {<br/>
+<span class="in2"></span><span class="macro">@put(<span class="name">globals</span>)</span><br/>
+<span class="in1"></span>};<br/>
 <span class="macro">@End(<span class="name">file: asyncfs.h</span>)</span><br/>
 </code></div>
 </div>
@@ -42,6 +46,55 @@
 <code>
 <span class="macro">@Def(<span class="name">run unit-tests</span>)</span><br/>
 <span class="macro">@End(<span class="name">run unit-tests</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">6</div>
+<code>
+<span class="macro">@def(<span class="name">includes</span>)</span><br/>
+<span class="in1"></span><span class="keyword">#include</span> &lt;<span class="var">cstring</span>&gt;<br/>
+<span class="macro">@end(<span class="name">includes</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide"><div class="slide-nr">7</div>
+<code>
+<span class="macro">@def(<span class="name">globals</span>)</span><br/>
+<span class="in1"></span><span class="keyword">class</span> <span class="type">Dir_Entry</span> {<br/>
+<span class="in2"></span><span class="type">char</span> <span class="var">name_</span>[<span class="num">32</span>];<br/>
+<span class="in1"></span><span class="var">protected</span>:<br/>
+<span class="in2"></span><span class="fn">Dir_Entry</span>(<span class="type">const</span> <span class="type">char</span> *<span class="var">name</span>);<br/>
+<span class="in2"></span><span class="var">virtual</span> ~<span class="fn">Dir_Entry</span>() {}<br/>
+<span class="in1"></span><span class="keyword">public</span>:<br/>
+<span class="in2"></span><span class="keyword">class</span> <span class="type">Name_Too_Long</span> {};<br/>
+<span class="in2"></span><span class="type">const</span> <span class="type">char</span> *<span class="fn">name</span>() <span class="type">const</span> {<br/>
+<span class="in3"></span><span class="keyword">return</span> <span class="var">name_</span>;<br/>
+<span class="in2"></span>}<br/>
+<span class="in1"></span>};<br/>
+<span class="in1"></span><span class="keyword">inline</span> <span class="type">Dir_Entry</span>::<span class="fn">Dir_Entry</span>(<span class="type">const</span> <span class="type">char</span> *<span class="var">name</span>) {<br/>
+<span class="in2"></span><span class="fn">strncpy</span>(<span class="var">name_</span>, <span class="var">name</span>, <span class="fn">sizeof</span>(<span class="var">name_</span>));<br/>
+<span class="in2"></span><span class="keyword">if</span> (<span class="var">name_</span>[<span class="fn">sizeof</span>(<span class="var">name_</span>) - <span class="num">1</span>]) {<br/>
+<span class="in3"></span><span class="keyword">throw</span> <span class="type">Name_Too_Long</span> {};<br/>
+<span class="in2"></span>}<br/>
+<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="keyword">class</span> <span class="type">Dir</span>: <span class="keyword">public</span> <span class="type">Dir_Entry</span> {<br/>
+<span class="in2"></span><span class="type">Dir</span> *<span class="var">parent_</span>;<br/>
+<span class="in1"></span><span class="var">protected</span>:<br/>
+<span class="in2"></span><span class="fn">Dir</span>(<span class="type">const</span> <span class="type">char</span> *<span class="var">name</span>, <span class="type">Dir</span> *<span class="var">parent</span>);<br/>
+<span class="in1"></span><span class="keyword">public</span>:<br/>
+<span class="in2"></span><span class="keyword">static</span> <span class="type">Dir</span> &amp;<span class="fn">root</span>();<br/>
+<span class="in2"></span><span class="type">Dir</span> *<span class="fn">parent</span>() <span class="type">const</span> { <span class="keyword">return</span> <span class="var">parent_</span>; }<br/>
+<span class="in1"></span>};<br/>
+<span class="in1"></span><span class="keyword">inline</span> <span class="type">Dir</span>::<span class="fn">Dir</span>(<span class="type">const</span> <span class="type">char</span> *<span class="var">name</span>, <span class="type">Dir</span> *<span class="var">parent</span>):<br/>
+<span class="in2"></span><span class="type">Dir_Entry</span> { <span class="var">name</span> }<br/>
+<span class="in1"></span>{<br/>
+<span class="in2"></span><span class="var">parent_</span> = <span class="var">parent</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="keyword">inline</span> <span class="type">Dir</span> &amp;<span class="type">Dir</span>::<span class="fn">root</span>() {<br/>
+<span class="in2"></span><span class="keyword">static</span> <span class="type">Dir</span> <span class="var">root_</span> { <span class="str">""</span>, <span class="num">nullptr</span> };<br/>
+<span class="in2"></span><span class="keyword">return</span> <span class="var">root_</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="keyword">class</span> <span class="type">File</span>: <span class="keyword">public</span> <span class="type">Dir_Entry</span> {<br/>
+<span class="in1"></span>};<br/>
+<span class="macro">@end(<span class="name">globals</span>)</span><br/>
 </code></div>
 </div>
 </body>
